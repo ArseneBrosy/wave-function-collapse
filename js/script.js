@@ -203,8 +203,44 @@ const set_snakes = [
     },
     {
         sprite: new Image(),
+        borders: [3, 2, 3, 2] 
+    },
+    {
+        sprite: new Image(),
+        borders: [1, 2, 1, 2] 
+    },
+    {
+        sprite: new Image(),
+        borders: [3, 1, 3, 1] 
+    },
+    {
+        sprite: new Image(),
+        borders: [2, 3, 2, 3] 
+    },
+    {
+        sprite: new Image(),
+        borders: [1, 2, 2, 1] 
+    },
+    {
+        sprite: new Image(),
+        borders: [3, 1, 1, 3] 
+    },
+    {
+        sprite: new Image(),
         borders: [2, 3, 3, 2] 
-    }
+    },
+    {
+        sprite: new Image(),
+        borders: [2, 1, 1, 2] 
+    },
+    {
+        sprite: new Image(),
+        borders: [1, 3, 3, 1] 
+    },
+    {
+        sprite: new Image(),
+        borders: [3, 2, 2, 3] 
+    },
 ];
 
 set_snakes[0].sprite.src = "img/snakes/red-line.png";
@@ -216,9 +252,18 @@ set_snakes[5].sprite.src = "img/snakes/green-l.png";
 set_snakes[6].sprite.src = "img/snakes/red-end.png";
 set_snakes[7].sprite.src = "img/snakes/blue-end.png";
 set_snakes[8].sprite.src = "img/snakes/green-end.png";
-set_snakes[9].sprite.src = "img/snakes/red-blue.png";
-set_snakes[10].sprite.src = "img/snakes/red-green.png";
-set_snakes[11].sprite.src = "img/snakes/green-blue.png";
+set_snakes[9].sprite.src = "img/snakes/red-blue1.png";
+set_snakes[10].sprite.src = "img/snakes/red-green1.png";
+set_snakes[11].sprite.src = "img/snakes/green-blue1.png";
+set_snakes[9].sprite.src = "img/snakes/red-blue2.png";
+set_snakes[10].sprite.src = "img/snakes/red-green2.png";
+set_snakes[11].sprite.src = "img/snakes/green-blue2.png";
+set_snakes[9].sprite.src = "img/snakes/red-blue3.png";
+set_snakes[10].sprite.src = "img/snakes/red-green3.png";
+set_snakes[11].sprite.src = "img/snakes/green-blue3.png";
+set_snakes[9].sprite.src = "img/snakes/red-blue4.png";
+set_snakes[10].sprite.src = "img/snakes/red-green4.png";
+set_snakes[11].sprite.src = "img/snakes/green-blue4.png";
 
 const tiles = set_snakes;
 //#endregion
