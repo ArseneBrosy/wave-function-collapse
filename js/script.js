@@ -4,8 +4,8 @@ canvas.width = 1500;
 canvas.height = 1500;
 
 //#region CONSTANTES
-const GRID_X = 40;
-const GRID_Y = 40;
+const GRID_X = 20;
+const GRID_Y = 20;
 
 const margin = 0;
 
@@ -183,15 +183,27 @@ const set_snakes = [
     },
     {
         sprite: new Image(),
-        borders: [0, 0, 0, 1] 
+        borders: [0, 0, 0, 1] ,
+        variation: {
+            sprite: new Image(),
+            probability: 0.15
+        }
     },
     {
         sprite: new Image(),
-        borders: [0, 0, 0, 2] 
+        borders: [0, 0, 0, 2],
+        variation: {
+            sprite: new Image(),
+            probability: 0.15
+        } 
     },
     {
         sprite: new Image(),
-        borders: [0, 0, 0, 3] 
+        borders: [0, 0, 0, 3],
+        variation: {
+            sprite: new Image(),
+            probability: 0.15
+        } 
     },
     {
         sprite: new Image(),
@@ -250,8 +262,11 @@ set_snakes[3].sprite.src = "img/snakes/red-l.png";
 set_snakes[4].sprite.src = "img/snakes/blue-l.png";
 set_snakes[5].sprite.src = "img/snakes/green-l.png";
 set_snakes[6].sprite.src = "img/snakes/red-end.png";
+set_snakes[6].variation.sprite.src = "img/snakes/red-end-variation.png";
 set_snakes[7].sprite.src = "img/snakes/blue-end.png";
+set_snakes[7].variation.sprite.src = "img/snakes/blue-end-variation.png";
 set_snakes[8].sprite.src = "img/snakes/green-end.png";
+set_snakes[8].variation.sprite.src = "img/snakes/green-end-variation.png";
 set_snakes[9].sprite.src = "img/snakes/red-blue1.png";
 set_snakes[10].sprite.src = "img/snakes/red-green1.png";
 set_snakes[11].sprite.src = "img/snakes/green-blue1.png";
@@ -304,7 +319,7 @@ function draw() {
                 }
                 ctx.translate((x + .5) * cell_w, (y + .5) * cell_h);
                 ctx.rotate((grid[x][y].options[0] % 4) * 90 * (Math.PI/180));
-                ctx.drawImage(tiles[parseInt(grid[x][y].options[0] / 4)].sprite, -cell_w / 2, -cell_h / 2, cell_w, cell_h);
+                ctx.drawImage(grid[x][y].variation ? tiles[parseInt(grid[x][y].options[0] / 4)].variation.sprite : tiles[parseInt(grid[x][y].options[0] / 4)].sprite, -cell_w / 2, -cell_h / 2, cell_w, cell_h);
                 ctx.rotate(-(grid[x][y].options[0] % 4) * 90 * (Math.PI/180));
                 ctx.translate(-(x + .5) * cell_w, -(y + .5) * cell_h);
                 if (isUnpossible) {
@@ -379,9 +394,11 @@ function calcOptions(x, y) {
 
 function collapse(x, y) {
     let pick = grid[x][y].options[Math.floor(Math.random() * grid[x][y].options.length)];
+    const variate = tiles[parseInt(pick / 4)].hasOwnProperty("variation") ? Math.random() < tiles[parseInt(pick / 4)].variation.probability : false;
     grid[x][y]= {
         collapsed: true,
-        options: [pick]
+        options: [pick],
+        variation: variate
     };
     if (x > 0) { if (!grid[x - 1][y].collapsed) { calcOptions (x - 1, y); } }
     if (x < GRID_X - 1) { if (!grid[x + 1][y].collapsed) { calcOptions (x + 1, y); } }
@@ -452,7 +469,13 @@ function loop() {
         cellsCollapsed -= removedCells;
         removedCells = 0;
         unpossibles = [];
+
+        if (cellsCollapsed === GRID_X * GRID_Y) {
+            console.log('done');
+            draw();
+            clearInterval(interval);
+        }
     }
     draw();
 }
-setInterval(loop, 0);
+let interval = setInterval(loop, 0);
